@@ -7,7 +7,7 @@ export const main = handler(async (event, context) => {
 
         // key defines keys used to specify item we want from ddb
         Key: {
-            userId: "123", // id of the author
+            userId: event.requestContext.identity.cognitoIdentityId, // id of the author
             noteId: event.pathParameters.id, // id of the note from path
         },
     };

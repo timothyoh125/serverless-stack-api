@@ -7,7 +7,7 @@ export const main = handler(async (event, context) => {
         TableName: process.env.tableName,
         // Key defines the partitio and sort key of item that should be updated
         Key: {
-            userId: "123",
+            userId: event.requestContext.identity.cognitoIdentityId,
             noteId: event.pathParameters.id,
         },
         // 'UpdateExpression' defines the item attributes to be updated in ddb

@@ -9,7 +9,7 @@ export const main = handler(async (event, context) => {
         TableName: process.env.tableName,
         Item: {
             // attributes of item that is added to dynamoDb table
-            userId: "123", // id of the author
+            userId: event.requestContext.identity.cognitoIdentityId, // id of the author
             noteId: uuid.v1(), // unique uuid
             content: data.content, // body parsed from HTTP request
             attachment: data.attachment, // parsed file attachment from request body
