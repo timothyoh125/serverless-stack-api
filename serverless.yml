@@ -27,6 +27,7 @@ provider:
   # under process.env
   environment: 
     tableName: notes
+    stripeSecretKey: ${env:STRIPE_SECRET_KEY}
   
   # 'iamRoleStatements' defines permission policy for Lambda function
   # Lambda functions granted with permissions to access DDB
@@ -44,6 +45,16 @@ provider:
   
 
 functions:
+  billing:
+    # Defines an HTTP API endpoint that calls main of billing.js
+    # - path: url path is /billing
+    # - method: POST request
+    handler: billing.main
+    events: 
+      - http:
+          path: billing
+          method: post
+          authorizer: aws_iam
   delete:
     # Defines an HTTP API endpoint that calls main of delete.js
     # - path: url path is /notes/{id}
